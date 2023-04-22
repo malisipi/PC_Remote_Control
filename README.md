@@ -29,7 +29,7 @@ There're a lot of reason to need it.
 
 ## Wiring Diagram
 
-> Will be added.
+![](./assets/wiring.png)
 
 ## FAQ
 
