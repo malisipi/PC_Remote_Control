@@ -23,7 +23,7 @@ There're a lot of reason to need it.
 
 * Customizable
 * Support for a lot of controller
-* Cross-platform (Windows support is not finished yet!)
+* Cross-platform (Linux & Windows)
 * 4-Digit display
 * Free and Open-Source
 
@@ -68,6 +68,7 @@ There're a lot of reason to need it.
 * It was tested on Arduino UNO rev3. However, it should work all Arduinos. If you was tested it on different Arduino, please report the support status.
 
 > OS
+* It was tested on Windows 11. It should work every Windows release since Windows 7.
 * It was tested on Arch Linux/Wayland/Pipewire. It should work every Linux distro that have Pipewire, `playerctl`, `pactl`.
 
 </details>

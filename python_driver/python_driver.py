@@ -10,9 +10,16 @@ import serial;
 import time;
 from datetime import datetime;
 import subprocess;
-import user_defined_commands as cm
+import user_defined_commands as cm;
+import port_finder as pf;
+import platform;
+from ctypes import WinDLL;
 
 debug_mode = False;
+platform_os = platform.system();
+
+if(platform_os=="Windows"):
+    user32 = WinDLL("user32");
 
 def arduino_write(text):
     global arduino;
@@ -25,24 +32,52 @@ def arduino_read():
     if(debug_mode): print("DEBUG: arduino_read: " + readed_value);
     return readed_value;
 
-def get_volume():
-    return subprocess.getoutput("pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | grep %").replace("%","");
+def send_key(key_code):
+    if(platform_os=="Windows"):
+        user32.keybd_event(key_code, 0, 0, 0);
+        user32.keybd_event(key_code, 0, 2, 0);
+    else:
+        pass;
 
-def change_volume(volume):
-    subprocess.getoutput(f"pactl set-sink-volume @DEFAULT_SINK@ {volume}%");
+def get_volume():
+    if(platform_os=="Windows"):
+        return "--";
+    else:
+        return subprocess.getoutput("pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | grep %").replace("%","");
+
+def change_volume(sign, volume):
+    if(platform_os=="Windows"):
+        if(sign=="+"):
+            key_code = 0xAF;
+        else:
+            key_code = 0xAE;
+
+        for _ in range(0, int(volume/2)):
+            send_key(key_code);
+    else:
+        subprocess.getoutput(f"pactl set-sink-volume @DEFAULT_SINK@ {sign}{volume}%");
 
 def player_play_pause():
-    subprocess.getoutput("playerctl play-pause");
+    if(platform_os=="Windows"):
+        send_key(0xB3);
+    else:
+        subprocess.getoutput("playerctl play-pause");
 
 def player_next():
-    subprocess.getoutput("playerctl next");
+    if(platform_os=="Windows"):
+        send_key(0xB0);
+    else:
+        subprocess.getoutput("playerctl next");
 
 def player_prev():
-    subprocess.getoutput("playerctl previous");
+    if(platform_os=="Windows"):
+        send_key(0xB1);
+    else:
+        subprocess.getoutput("playerctl previous");
 
 latest_time="----";
 
-arduino = serial.Serial(port="/dev/ttyUSB0", baudrate=9600, timeout=0.05);
+arduino = serial.Serial(port=pf.find_port(platform_os), baudrate=9600, timeout=0.05);
 time.sleep(2);
 
 while(True):
@@ -52,10 +87,10 @@ while(True):
         arduino_write(latest_time);
     match(arduino_read().decode("utf-8").replace("\r\n","")):
         case "#VUP":
-            change_volume("+10");
+            change_volume("+", 10);
             arduino_write(f"V{get_volume()}");
         case "#VDN":
-            change_volume("-10");
+            change_volume("-", 10);
             arduino_write(f"V{get_volume()}");
         case "#PLY":
             player_play_pause();
