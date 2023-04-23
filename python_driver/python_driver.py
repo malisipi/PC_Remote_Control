@@ -13,12 +13,12 @@ import subprocess;
 import user_defined_commands as cm;
 import port_finder as pf;
 import platform;
-from ctypes import WinDLL;
 
 debug_mode = False;
 platform_os = platform.system();
 
 if(platform_os=="Windows"):
+    from ctypes import WinDLL;
     user32 = WinDLL("user32");
 
 def arduino_write(text):
