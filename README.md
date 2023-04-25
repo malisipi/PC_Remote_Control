@@ -31,6 +31,22 @@ There're a lot of reason to need it.
 
 ![](./assets/wiring.png)
 
+## Used libraries & Softwares
+
+* Python (Desktop)
+    * Common (Windows & Linux)
+        * [`PySerial`](https://pypi.org/project/pyserial/) library -> BSD License (BSD)
+    * Linux
+        * [`pactl`](https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/blob/master/src/utils/pactl.c)<sup>1</sup> cli program -> GPL v2
+        * [`playerctl`](https://github.com/altdesktop/playerctl)<sup>1</sup> cli program -> LGPL v3
+* Arduino (C++)
+    * [`SevSeg`](https://github.com/DeanIsMe/SevSeg) library -> MIT License
+    * [`IRremote`](https://github.com/Arduino-IRremote/Arduino-IRremote) library -> MIT License
+
+> <sup>1</sup>: Why is the project license not GPL?
+
+* There are no linking and distributing. The program uses only the output of the cli program. And the program can work without the cli program.
+
 ## FAQ
 
 <details>
