@@ -19,6 +19,10 @@ We have a lot situation that require a remote control device in daily/work life.
 
 There're a lot of reason to need it.
 
+## Watch Demo
+
+[![](./assets/youtube_preview.jpg)](https://youtu.be/ASs5eGhHqLA)
+
 ## Abilities
 
 * Customizable
