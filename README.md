@@ -37,6 +37,11 @@ There're a lot of reason to need it.
 
 ## Used libraries & Softwares
 
+* Javascript (Web - Chromium-base only)
+    * Web APIs
+        * [Web Serial API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API)
+        * [TextDecoder](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder)
+        * [TextEncoder](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder)
 * Python (Desktop)
     * Common (Windows & Linux)
         * [`PySerial`](https://pypi.org/project/pyserial/) library -> BSD License (BSD)
